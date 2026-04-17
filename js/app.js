@@ -1,5 +1,5 @@
 let score = 0;
-let time = 59;
+let time = 5;
 
 const playerName = document.getElementById('playerName');
 const btn1 = document.getElementById("btn1");
@@ -34,7 +34,6 @@ function timeCounter() {
       enableSubmitButton()
       return; // stop further execution
     }
-
     time--;// then decrease
   }, 1000);
 }
@@ -53,6 +52,7 @@ function enableSubmitButton() {
 btn2.addEventListener("click", () => {
   submitButton();
 })
-function submitButton() {
 
+function submitButton() {
+  console.log(playerName.value);
 }
