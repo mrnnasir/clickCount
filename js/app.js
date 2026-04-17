@@ -1,13 +1,16 @@
 let score = 0;
 let time = 59;
 
+const playerName = document.getElementById('playerName');
 const btn1 = document.getElementById("btn1");
+const btn2 = document.getElementById("btn2");
 const scoreDisplay = document.getElementById("scoreDisplay")
 const timeLeft = document.getElementById("timeLeft");
 
 let timerStarted = false;
 
 btn1.addEventListener("click", () => {
+  disableSubmitButton();
   if (!timerStarted) {
     timeCounter();
     timerStarted = true;
@@ -27,13 +30,29 @@ function timeCounter() {
     if (time === 0) {
       clearInterval(timer);
       timeLeft.innerHTML = "Time's Up!";
-      disableButton();
+      disableClickButton();
+      enableSubmitButton()
       return; // stop further execution
     }
-    time--; // then decrease
+
+    time--;// then decrease
   }, 1000);
 }
 
-function disableButton() {
+function disableClickButton() {
   btn1.disabled = true;
+}
+
+function disableSubmitButton() {
+  btn2.disabled = true;
+}
+
+function enableSubmitButton() {
+  btn2.disabled = false;
+}
+btn2.addEventListener("click", () => {
+  submitButton();
+})
+function submitButton() {
+
 }
