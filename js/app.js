@@ -1,11 +1,12 @@
 let score = 0;
 let time = 5;
 
-const playerName = document.getElementById('playerName');
-const btn1 = document.getElementById("btn1");
-const btn2 = document.getElementById("btn2");
+const playerName = document.getElementById('playerName'); // Input Player Name
+const btn1 = document.getElementById("btn1"); // Click me button
+const btn2 = document.getElementById("btn2"); // Submit button
 const scoreDisplay = document.getElementById("scoreDisplay")
 const timeLeft = document.getElementById("timeLeft");
+// const result = document.getElementById("result");
 
 let timerStarted = false;
 
@@ -31,7 +32,7 @@ function timeCounter() {
       clearInterval(timer);
       timeLeft.innerHTML = "Time's Up!";
       disableClickButton();
-      enableSubmitButton()
+      enableSubmitButton();
       return; // stop further execution
     }
     time--;// then decrease
@@ -49,10 +50,13 @@ function disableSubmitButton() {
 function enableSubmitButton() {
   btn2.disabled = false;
 }
-btn2.addEventListener("click", () => {
-  submitButton();
-})
+
+btn2.addEventListener("click", submitButton, { once: true });
 
 function submitButton() {
   console.log(playerName.value);
-}
+  let resultP = document.createElement("p");
+  resultP.classList.add("result");
+  resultP.innerHTML = playerName.value;
+  document.body.appendChild(resultP);
+} //TODO: Need to add score
