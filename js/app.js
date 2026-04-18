@@ -54,9 +54,9 @@ function enableSubmitButton() {
 btn2.addEventListener("click", submitButton, { once: true });
 
 function submitButton() {
-  console.log(playerName.value);
+
   let resultP = document.createElement("p");
   resultP.classList.add("result");
-  resultP.innerHTML = playerName.value;
+  resultP.innerHTML = 'Player name: '+ playerName.value + ' and the score is: ' + score;
   document.body.appendChild(resultP);
 } //TODO: Need to add score
