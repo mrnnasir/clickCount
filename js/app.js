@@ -4,9 +4,11 @@ let time = 2;
 const playerName = document.getElementById('playerName'); // Input Player Name
 const btn1 = document.getElementById("btn1"); // Click me button
 const btn2 = document.getElementById("btn2"); // Submit button
+const btn3 = document.getElementById("btn3");
 const scoreDisplay = document.getElementById("scoreDisplay")
 const timeLeft = document.getElementById("timeLeft");
-
+//const startCount = document.getElementById("startCount");
+const playerScore = document.getElementById("playerScore");
 
 let timerStarted = false;
 
@@ -82,8 +84,8 @@ async function submitButton() {
 
     let resultP = document.createElement("p");
     resultP.classList.add("result");
-    resultP.innerHTML = 'Player name: '+ playerName.value + ' and the score is: ' + score;
-    document.body.appendChild(resultP);
+    resultP.innerHTML = 'Player name: '+ playerName.value + ' and the score is: <strong>' + score + '</strong>';
+    playerScore.appendChild(resultP);
   }
 
   catch (error) {
@@ -95,5 +97,32 @@ function showMessage(msg) {
   let messageP = document.createElement("p");
   messageP.classList.add("message");
   messageP.innerHTML = msg;
-  document.body.appendChild(messageP);
+  playerScore.appendChild(messageP);
+}
+
+btn3.addEventListener("click", loadScoreboard);
+
+async function loadScoreboard() {
+  const scoreboardEl = document.getElementById("scoreboard");
+
+  try {
+    const response = await fetch("https://script.google.com/macros/s/AKfycbys5aEPMvNCutyhNYYCcQcCjzsi2UtqNspmKyCH-AicJxJbCJMrAoT0LUaYaXhTWA8n/exec");
+    const data = await response.json();
+
+    // Sort scores (highest first)
+    data.sort((a, b) => b.score - a.score);
+
+    // Clear existing
+    scoreboardEl.innerHTML = "";
+
+    data.forEach((entry, index) => {
+      const row = document.createElement("p");
+      row.innerHTML = `${index + 1}. ${entry.name} - <strong>${entry.score}</strong>`;
+      scoreboardEl.appendChild(row);
+    });
+
+  } catch (error) {
+    console.error(error);
+    scoreboardEl.textContent = "Failed to load scoreboard";
+  }
 }
